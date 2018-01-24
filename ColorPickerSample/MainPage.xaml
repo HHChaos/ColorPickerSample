@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="ColorPickerSample.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ColorPickerSample"
+    xmlns:converter="using:ILaiHua.UWP.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Width="420" Height="500">
+
+    <Page.Resources>
+        <converter:ColorConverter x:Key="colorConverter"/>
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="333"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="333"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="1" BorderBrush="Black">
+                    <Image Source="Assets/color.png" x:Name="imgColorPicker" PointerReleased="imgColorPicker_PointerReleased"/>
+                </Border>
+                <Border x:Name="selectColorBorder" Background="White" Grid.Column="1" HorizontalAlignment="Right" Width="50" BorderThickness="1" BorderBrush="Black"/>
+            </Grid>
+            <Grid Grid.Row="1" VerticalAlignment="Bottom">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBox x:Name="txtColorR" TextChanged="txtColor_TextChanged" Text="{Binding ElementName=selectColorBorder, Path=Background, Converter={StaticResource colorConverter}, ConverterParameter=R}"/>
+                    <TextBlock Text="红色" VerticalAlignment="Center" Margin="5,0"/>
+                    <TextBox x:Name="txtColorG" TextChanged="txtColor_TextChanged" Text="{Binding ElementName=selectColorBorder, Path=Background, Converter={StaticResource colorConverter}, ConverterParameter=G}" Margin="10,0,0,0"/>
+                    <TextBlock Text="绿色" VerticalAlignment="Center" Margin="5,0"/>
+                    <TextBox x:Name="txtColorB" TextChanged="txtColor_TextChanged" Text="{Binding ElementName=selectColorBorder, Path=Background, Converter={StaticResource colorConverter}, ConverterParameter=B}" Margin="10,0,0,0"/>
+                    <TextBlock Text="蓝色" VerticalAlignment="Center" Margin="5,0"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBox x:Name="txtColorHex" TextChanged="txtColor_TextChanged" Width="120" Text="{Binding ElementName=selectColorBorder, Path=Background, Converter={StaticResource colorConverter}, ConverterParameter=HEX}"/>
+                    <TextBlock Text="颜色值" VerticalAlignment="Center" Margin="5,0"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="0,0,5,0" Content="确定" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="1" Margin="5,0,0,0" Content="取消" HorizontalAlignment="Stretch"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
